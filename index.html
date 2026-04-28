@@ -1,0 +1,579 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    />
+    <title>ALTOYSIGA — Utah DMV · Método Spanglish</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- ── SPLASH ── -->
+    <div id="screen-splash" class="screen active">
+      <div class="splash-bg"></div>
+      <div class="splash-inner">
+        <div class="splash-top">
+          <div class="splash-eyebrow">UTAH DMV · SPANGLISH METHOD</div>
+          <div class="splash-logo">ALTO<br />YSIGA</div>
+          <div class="splash-bars">
+            <div
+              class="splash-bar"
+              style="background: #c62020; width: 48px"
+            ></div>
+            <div
+              class="splash-bar"
+              style="background: #d95528; width: 36px"
+            ></div>
+            <div
+              class="splash-bar"
+              style="background: #c9a000; width: 26px"
+            ></div>
+            <div
+              class="splash-bar"
+              style="background: #178226; width: 18px"
+            ></div>
+          </div>
+          <p class="splash-desc">
+            Aprende con preguntas reales del examen escrito de Utah. Método
+            Spanglish — términos en inglés, preguntas en español.
+          </p>
+        </div>
+        <div class="splash-bottom">
+          <span class="splash-cta-label">Empezar gratis</span>
+          <button class="splash-go" data-goto="home">›</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── HOME ── -->
+    <div id="screen-home" class="screen">
+      <div class="home-header">
+        <div class="home-header-glow"></div>
+        <div class="home-header-inner">
+          <div class="home-eyebrow">
+            PREPÁRATE PARA EL EXAMEN ESCRITO DE MANEJO
+          </div>
+          <div class="home-title">Alto y Siga</div>
+          <div class="home-bars">
+            <div
+              class="home-bar"
+              style="background: #c62020; width: 36px"
+            ></div>
+            <div
+              class="home-bar"
+              style="background: #d95528; width: 26px"
+            ></div>
+            <div
+              class="home-bar"
+              style="background: #c9a000; width: 18px"
+            ></div>
+            <div
+              class="home-bar"
+              style="background: #178226; width: 13px"
+            ></div>
+          </div>
+        </div>
+      </div>
+      <div class="home-body">
+        <div class="tip-row">
+          <span class="tip-badge">TIP</span>
+          <div class="tip-div"></div>
+          <div>
+            <div class="tip-kt" id="tip-en">Speed limit</div>
+            <div class="tip-es" id="tip-es">Límite de velocidad</div>
+          </div>
+        </div>
+        <div class="sec-hdr">
+          <div class="sec-title">Practica</div>
+          <div class="sec-sub">5 modos</div>
+        </div>
+        <!-- PREGUNTAS -->
+        <div class="hero-card" data-goto="preguntas">
+          <div
+            class="hc-glow"
+            style="
+              background:
+                radial-gradient(
+                  ellipse at 88% 15%,
+                  rgba(198, 32, 32, 0.38) 0%,
+                  transparent 55%
+                ),
+                radial-gradient(
+                  ellipse at 10% 85%,
+                  rgba(217, 85, 40, 0.14) 0%,
+                  transparent 50%
+                );
+            "
+          ></div>
+          <div class="hc-arrow-abs">↗</div>
+          <div class="hc-inner">
+            <div class="hc-name">Preguntas</div>
+            <div class="hc-desc">3 niveles · método bilingüe</div>
+          </div>
+        </div>
+        <!-- MINI GRID -->
+        <div class="mini-grid">
+          <div class="mini-card" data-goto="asociar">
+            <div
+              class="mc-glow"
+              style="
+                background: radial-gradient(
+                  ellipse at 75% 20%,
+                  rgba(100, 178, 28, 0.22) 0%,
+                  transparent 60%
+                );
+              "
+            ></div>
+            <div class="mc-inner">
+              <div class="mc-bottom">
+                <div class="mc-name">Asociar</div>
+                <div class="mc-desc">Conecta términos</div>
+              </div>
+            </div>
+            <span class="mc-arrow">↗</span>
+          </div>
+          <div class="mini-card" data-goto="flashcards">
+            <div
+              class="mc-glow"
+              style="
+                background: radial-gradient(
+                  ellipse at 75% 20%,
+                  rgba(201, 160, 0, 0.28) 0%,
+                  transparent 60%
+                );
+              "
+            ></div>
+            <div class="mc-inner">
+              <div class="mc-bottom">
+                <div class="mc-name">Flashcards</div>
+                <div class="mc-desc">Memoriza términos</div>
+              </div>
+            </div>
+            <span class="mc-arrow">↗</span>
+          </div>
+          <div class="mini-card" data-goto="senales">
+            <div
+              class="mc-glow"
+              style="
+                background: radial-gradient(
+                  ellipse at 75% 20%,
+                  rgba(40, 100, 220, 0.28) 0%,
+                  transparent 60%
+                );
+              "
+            ></div>
+            <div class="mc-inner">
+              <div class="mc-bottom">
+                <div class="mc-name">Señales</div>
+                <div class="mc-desc">Señales de tráfico</div>
+              </div>
+            </div>
+            <span class="mc-arrow">↗</span>
+          </div>
+        </div>
+        <!-- EXAMEN -->
+        <div class="exam-bar" data-goto="examen">
+          <div class="eb-glow"></div>
+          <div class="eb-inner">
+            <div class="eb-icon">📋</div>
+            <div>
+              <div class="eb-eyebrow">MODO FINAL</div>
+              <div class="eb-name">Practica el examen</div>
+              <div class="eb-sub">80% para aprobar · 20 preguntas</div>
+            </div>
+            <div class="eb-btn">
+              <span class="eb-btn-txt">Iniciar →</span>
+            </div>
+          </div>
+        </div>
+        <div class="home-footer">
+          <span>ALTOYSIGA · Utah DMV</span>
+          <span>·</span>
+          <span>Método Spanglish</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── PREGUNTAS ── -->
+    <div id="screen-preguntas" class="screen">
+      <!-- SUB: NIVEL -->
+      <div id="pq-levels" class="pq-sub active">
+        <div class="pq-hdr">
+          <button class="back-btn small" data-goto="home">←</button>
+          <div>
+            <div class="pq-eyebrow">320 PREGUNTAS · UTAH DMV</div>
+            <div class="pq-title">Preguntas</div>
+          </div>
+        </div>
+        <div class="pq-body">
+          <div class="sec-hdr" style="margin-bottom: 12px">
+            <div class="sec-title">Elige tu nivel</div>
+            <div class="sec-sub">3 niveles</div>
+          </div>
+          <div class="level-grid">
+            <div class="level-option active" data-level="basico">
+              🟢 Nivel 1 — Principiante
+              <div class="level-desc">
+                Pregunta en español + 1 término en inglés
+              </div>
+            </div>
+            <div class="level-option" data-level="normal">
+              🟡 Nivel 2 — Intermedio
+              <div class="level-desc">
+                Pregunta en español + 2 términos en inglés
+              </div>
+            </div>
+            <div class="level-option" data-level="dificil">
+              🟠 Nivel 3 — Avanzado
+              <div class="level-desc">
+                Pregunta en inglés + respuestas en español
+              </div>
+            </div>
+          </div>
+          <button id="pq-start-btn" class="pq-action-btn primary">
+            Comenzar →
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB: PREGUNTA -->
+      <div id="pq-question" class="pq-sub">
+        <div class="pq-qhdr">
+          <div class="pq-prog-wrap">
+            <div class="pq-prog-bar" id="pq-prog-bar"></div>
+          </div>
+          <div class="pq-score-row">
+            <span class="pq-score-item cor">✓ <span id="pq-cor">0</span></span>
+            <span class="pq-qnum" id="pq-qnum">1 / 20</span>
+            <span class="pq-score-item wrg">✗ <span id="pq-inc">0</span></span>
+          </div>
+        </div>
+        <div class="pq-qbody">
+          <div class="pq-q-card">
+            <div class="pq-hint" id="pq-hint"></div>
+            <div class="pq-qtxt" id="pq-qtxt"></div>
+          </div>
+          <div class="pq-opts" id="pq-opts"></div>
+          <button
+            id="pq-next-btn"
+            class="pq-action-btn secondary"
+            style="display: none"
+          >
+            Siguiente →
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB: RESULTADOS -->
+      <div id="pq-results" class="pq-sub">
+        <div class="pq-hdr">
+          <button class="back-btn small" data-goto="home">←</button>
+          <div>
+            <div class="pq-eyebrow">SESIÓN COMPLETADA</div>
+            <div class="pq-title">Resultados</div>
+          </div>
+        </div>
+        <div class="pq-body">
+          <div class="pq-res-card">
+            <div class="pq-res-pct" id="pq-res-pct">0%</div>
+            <div class="pq-res-title" id="pq-res-title">—</div>
+            <div class="pq-res-sub" id="pq-res-sub">—</div>
+            <div class="pq-res-stats">
+              <div class="pq-stat cor">
+                <span id="pq-res-cor">0</span><span>correctas</span>
+              </div>
+              <div class="pq-stat-div"></div>
+              <div class="pq-stat wrg">
+                <span id="pq-res-inc">0</span><span>incorrectas</span>
+              </div>
+            </div>
+          </div>
+          <div id="pq-wrongs" style="display: none">
+            <div class="sec-hdr" style="margin: 14px 0 10px">
+              <div class="sec-title">Términos fallados</div>
+            </div>
+            <div id="pq-wrong-list" class="pq-wrong-list"></div>
+          </div>
+          <div class="pq-res-btns">
+            <button
+              id="pq-retry-btn"
+              class="pq-action-btn secondary"
+              style="display: none"
+            >
+              📋 Ver preguntas falladas
+            </button>
+            <button id="pq-more-btn" class="pq-action-btn primary">
+              Practicar otras 20 →
+            </button>
+            <button id="pq-again-btn" class="pq-action-btn secondary">
+              Elegir nivel →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB: REVIEW (preguntas falladas con texto completo) -->
+      <div id="pq-review" class="pq-sub">
+        <div class="pq-hdr">
+          <button class="back-btn small" id="pq-review-back-btn">←</button>
+          <div>
+            <div class="pq-eyebrow">REPASO</div>
+            <div class="pq-title">Preguntas falladas</div>
+          </div>
+        </div>
+        <div class="pq-body">
+          <div id="pq-review-list" class="pq-review-list"></div>
+          <div class="pq-res-btns">
+            <button id="pq-retry-review-btn" class="pq-action-btn secondary">
+              ↺ Repasar estas preguntas
+            </button>
+            <button id="pq-home-from-review-btn" class="pq-action-btn primary">
+              ← Volver al inicio
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="screen-asociar" class="screen">
+      <!-- SUB: SETUP -->
+      <div id="as-setup" class="as-sub">
+        <div class="as-hdr">
+          <button class="back-btn" data-goto="home">←</button>
+          <div class="as-hdr-title">Asociar</div>
+        </div>
+        <div class="as-setup-body">
+          <div class="as-setup-icon">🔗</div>
+          <div class="as-setup-heading">Conecta los Términos</div>
+          <div class="as-setup-desc">
+            6 pares · inglés ↔ español<br />Toca dos que correspondan para
+            eliminarlos
+          </div>
+          <div class="as-setup-rules">
+            <div class="as-rule">
+              <span class="as-rule-dot" style="background: #64b21c"></span>Par
+              correcto → desaparece
+            </div>
+            <div class="as-rule">
+              <span class="as-rule-dot" style="background: #c62020"></span>Par
+              incorrecto → se reinicia
+            </div>
+          </div>
+          <button class="as-start-btn" id="as-start-btn">Empezar →</button>
+        </div>
+      </div>
+
+      <!-- SUB: BOARD -->
+      <div id="as-board" class="as-sub">
+        <div class="as-board-hdr">
+          <button class="as-back-mini" id="as-back-mini">←</button>
+          <div class="as-progress">
+            <span id="as-matched">0</span><span class="as-prog-sep">/6</span>
+            <span class="as-prog-label"> pares</span>
+          </div>
+          <div class="as-attempts-badge">
+            <span id="as-attempts">0</span
+            ><span class="as-prog-label"> intentos</span>
+          </div>
+        </div>
+        <div class="as-grid" id="as-grid"></div>
+      </div>
+
+      <!-- SUB: RESULTS -->
+      <div id="as-results" class="as-sub">
+        <div class="as-hdr">
+          <button class="back-btn" data-goto="home">←</button>
+          <div class="as-hdr-title">Resultado</div>
+        </div>
+        <div class="as-results-body">
+          <div class="as-result-icon" id="as-result-icon">🎉</div>
+          <div class="as-result-heading" id="as-result-heading">
+            ¡Completado!
+          </div>
+          <div class="as-result-stat">
+            <span id="as-final-attempts">0</span> intentos para 6 pares
+          </div>
+          <div class="as-result-acc" id="as-result-acc"></div>
+          <button class="as-start-btn" id="as-play-again-btn">
+            Jugar de nuevo →
+          </button>
+          <button class="as-home-btn" data-goto="home">Inicio</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── FLASHCARDS ── -->
+    <div id="screen-flashcards" class="screen">
+      <!-- SUB: SETUP -->
+      <div id="fc-setup" class="fc-sub">
+        <div class="as-hdr">
+          <button class="back-btn" data-goto="home">←</button>
+          <div class="as-hdr-title">Flashcards</div>
+        </div>
+        <div class="fc-setup-body">
+          <div class="fc-setup-icon">🃏</div>
+          <div class="fc-setup-heading">Memoriza Términos</div>
+          <div class="fc-setup-desc">
+            100 términos del DMV<br />Inglés al frente · Español al reverso
+          </div>
+          <div class="fc-setup-rules">
+            <div class="fc-rule">
+              <span class="fc-rule-key">Tap / Space</span
+              ><span class="fc-rule-sep">→</span>voltear tarjeta
+            </div>
+            <div class="fc-rule">
+              <span class="fc-rule-key">← →</span
+              ><span class="fc-rule-sep">→</span>navegar
+            </div>
+            <div class="fc-rule">
+              <span class="fc-rule-key">Swipe</span
+              ><span class="fc-rule-sep">→</span>deslizar
+            </div>
+          </div>
+          <button class="as-start-btn" id="fc-start-btn">Empezar →</button>
+        </div>
+      </div>
+
+      <!-- SUB: VIEWER -->
+      <div id="fc-viewer" class="fc-sub">
+        <div class="fc-viewer-hdr">
+          <button class="as-back-mini" id="fc-back-mini">←</button>
+          <div class="fc-hdr-center">
+            <div class="fc-counter">
+              <span id="fc-idx-cur">1</span><span class="as-prog-sep">/</span
+              ><span id="fc-idx-tot">100</span>
+            </div>
+            <div class="fc-progress-bar-wrap">
+              <div class="fc-progress-bar" id="fc-progress-bar"></div>
+            </div>
+          </div>
+          <div class="fc-flip-hint" id="fc-flip-hint">tap para voltear</div>
+        </div>
+        <div class="fc-stage">
+          <div class="fc-card-wrap" id="fc-card-wrap">
+            <div class="fc-card-inner" id="fc-card-inner">
+              <div class="fc-card-face fc-card-front">
+                <div class="fc-side-label">English</div>
+                <div class="fc-term" id="fc-front-term"></div>
+                <div class="fc-card-hint">tap para ver en español</div>
+              </div>
+              <div class="fc-card-face fc-card-back">
+                <div class="fc-side-label">Español</div>
+                <div class="fc-term" id="fc-back-term"></div>
+                <div class="fc-card-hint">tap para ver en inglés</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="fc-nav-row">
+          <button class="fc-nav-btn" id="fc-prev-btn" aria-label="Anterior">
+            ‹
+          </button>
+          <div class="fc-nav-label" id="fc-nav-label"></div>
+          <button class="fc-nav-btn" id="fc-next-btn" aria-label="Siguiente">
+            ›
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB: CHECKPOINT -->
+      <div id="fc-checkpoint" class="fc-sub">
+        <div class="fc-checkpoint-body">
+          <div class="fc-chk-icon">☕</div>
+          <div class="fc-chk-count" id="fc-chk-count">10 tarjetas vistas</div>
+          <div class="fc-chk-sub">¿Seguimos?</div>
+          <button class="as-start-btn" id="fc-continue-btn">Continuar →</button>
+          <button class="as-home-btn" data-goto="home">Inicio</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── SEÑALES ── -->
+    <div id="screen-senales" class="screen">
+      <div class="sn-hdr">
+        <button class="back-btn" data-goto="home">←</button>
+        <div class="as-hdr-title">Señales</div>
+        <button class="sn-lang-btn" id="sn-lang-btn">English</button>
+      </div>
+
+      <!-- Instruction block -->
+      <div class="sn-instr" id="sn-instr">
+        <img class="sn-instr-icon" src="assets/signs.png" alt="señales" />
+        <div class="sn-instr-text">
+          <div class="sn-instr-title">
+            Selecciona el significado correcto de cada señal.
+          </div>
+          <div class="sn-instr-sub">
+            Puedes cambiar a inglés en cualquier momento.
+          </div>
+        </div>
+      </div>
+
+      <!-- Card: image + options -->
+      <div class="sn-card" id="sn-card">
+        <div class="sn-img-wrap">
+          <div class="sn-img-card">
+            <img
+              class="sn-img"
+              id="sn-img"
+              src=""
+              alt="señal de tráfico"
+              onload="snImgLoaded()"
+            />
+          </div>
+          <img
+            class="sn-img-preload"
+            id="sn-img-preload"
+            src=""
+            alt=""
+            aria-hidden="true"
+          />
+        </div>
+        <div class="sn-opts" id="sn-opts">
+          <button
+            class="sn-opt"
+            id="sn-opt-0"
+            data-idx="0"
+            onclick="handleSignAnswer(0)"
+          ></button>
+          <button
+            class="sn-opt"
+            id="sn-opt-1"
+            data-idx="1"
+            onclick="handleSignAnswer(1)"
+          ></button>
+        </div>
+      </div>
+
+      <!-- Checkpoint overlay (every 15 questions) -->
+      <div class="sn-checkpoint" id="sn-checkpoint">
+        <div class="sn-cp-body">
+          <div class="sn-cp-icon">🚦</div>
+          <div class="sn-cp-title">15 señales vistas</div>
+          <div class="sn-cp-sub">¿Quieres continuar o volver al inicio?</div>
+          <button class="as-start-btn" onclick="snContinue()">
+            Continuar →
+          </button>
+          <button class="as-home-btn" data-goto="home">Volver al inicio</button>
+        </div>
+      </div>
+
+      <!-- Progress indicator -->
+      <div class="sn-footer">
+        <span class="sn-prog" id="sn-prog"></span>
+        <div class="sn-prog-bar-wrap">
+          <div class="sn-prog-bar" id="sn-prog-bar"></div>
+        </div>
+      </div>
+    </div>
+
+    <div id="screen-examen" class="screen placeholder">
+      <button class="back-btn" data-goto="home">←</button>
+      <h2>Practica el examen</h2>
+      <p>80% para aprobar · 20 preguntas</p>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
