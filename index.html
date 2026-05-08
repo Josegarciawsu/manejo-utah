@@ -63,7 +63,7 @@
         <div class="hc-arrow-abs">↗</div>
         <div class="hc-inner">
           <div class="hc-name">Preguntas</div>
-          <div class="hc-desc">3 niveles · método bilingüe</div>
+          <div class="hc-desc">4 niveles · método bilingüe</div>
         </div>
       </div>
       <!-- MINI GRID -->
@@ -78,25 +78,25 @@
           </div>
           <span class="mc-arrow">↗</span>
         </div>
-        <div class="mini-card" data-goto="flashcards">
-          <div class="mc-glow" style="background:radial-gradient(ellipse at 75% 20%,rgba(201,160,0,0.28) 0%,transparent 60%)"></div>
+        <div class="mini-card disabled">
+          <div class="mc-glow" style="background:radial-gradient(ellipse at 75% 20%,rgba(201,160,0,0.18) 0%,transparent 60%)"></div>
           <div class="mc-inner">
             <div class="mc-bottom">
               <div class="mc-name">Flashcards</div>
               <div class="mc-desc">Memoriza términos</div>
             </div>
           </div>
-          <span class="mc-arrow">↗</span>
+          <span class="mc-arrow" style="color:rgba(255,255,255,0.22)">↗</span>
         </div>
-        <div class="mini-card" data-goto="senales">
-          <div class="mc-glow" style="background:radial-gradient(ellipse at 75% 20%,rgba(40,100,220,0.28) 0%,transparent 60%)"></div>
+        <div class="mini-card disabled">
+          <div class="mc-glow" style="background:radial-gradient(ellipse at 75% 20%,rgba(40,100,220,0.20) 0%,transparent 60%)"></div>
           <div class="mc-inner">
             <div class="mc-bottom">
               <div class="mc-name">Señales</div>
               <div class="mc-desc">Señales de tráfico</div>
             </div>
           </div>
-          <span class="mc-arrow">↗</span>
+          <span class="mc-arrow" style="color:rgba(255,255,255,0.22)">↗</span>
         </div>
       </div>
       <!-- EXAMEN -->
@@ -137,7 +137,7 @@
       <div class="pq-body">
         <div class="sec-hdr" style="margin-bottom:12px">
           <div class="sec-title">Elige tu nivel</div>
-          <div class="sec-sub">3 niveles</div>
+          <div class="sec-sub">4 niveles</div>
         </div>
         <div class="level-grid">
           <div class="level-option active" data-level="basico">
@@ -156,6 +156,12 @@
             🟠 Nivel 3 — Avanzado
             <div class="level-desc">
               Pregunta en inglés + respuestas en español
+            </div>
+          </div>
+          <div class="level-option" data-level="maestro">
+            🔴 Nivel 4 — Experto
+            <div class="level-desc">
+              Pregunta y respuestas en inglés
             </div>
           </div>
         </div>
@@ -212,32 +218,15 @@
           <div id="pq-wrong-list" class="pq-wrong-list"></div>
         </div>
         <div class="pq-res-btns">
-          <button id="pq-retry-btn" class="pq-action-btn secondary" style="display:none">📋 Ver preguntas falladas</button>
-          <button id="pq-more-btn" class="pq-action-btn primary">Practicar otras 20 →</button>
-          <button id="pq-again-btn" class="pq-action-btn secondary">Elegir nivel →</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- SUB: REVIEW (preguntas falladas con texto completo) -->
-    <div id="pq-review" class="pq-sub">
-      <div class="pq-hdr">
-        <button class="back-btn small" id="pq-review-back-btn">←</button>
-        <div>
-          <div class="pq-eyebrow">REPASO</div>
-          <div class="pq-title">Preguntas falladas</div>
-        </div>
-      </div>
-      <div class="pq-body">
-        <div id="pq-review-list" class="pq-review-list"></div>
-        <div class="pq-res-btns">
-          <button id="pq-retry-review-btn" class="pq-action-btn secondary">↺ Repasar estas preguntas</button>
-          <button id="pq-home-from-review-btn" class="pq-action-btn primary">← Volver al inicio</button>
+          <button id="pq-retry-btn" class="pq-action-btn secondary" style="display:none">↺ Repetir falladas</button>
+          <button id="pq-again-btn" class="pq-action-btn primary">Nueva sesión →</button>
         </div>
       </div>
     </div>
 
   </div>
+
+  <!-- ── ASOCIAR ── -->
   <div id="screen-asociar" class="screen">
 
     <!-- SUB: SETUP -->
@@ -291,128 +280,7 @@
 
   </div>
 
-  <!-- ── FLASHCARDS ── -->
-  <div id="screen-flashcards" class="screen">
-
-    <!-- SUB: SETUP -->
-    <div id="fc-setup" class="fc-sub">
-      <div class="as-hdr">
-        <button class="back-btn" data-goto="home">←</button>
-        <div class="as-hdr-title">Flashcards</div>
-      </div>
-      <div class="fc-setup-body">
-        <div class="fc-setup-icon">🃏</div>
-        <div class="fc-setup-heading">Memoriza Términos</div>
-        <div class="fc-setup-desc">100 términos del DMV<br>Inglés al frente · Español al reverso</div>
-        <div class="fc-setup-rules">
-          <div class="fc-rule"><span class="fc-rule-key">Tap / Space</span><span class="fc-rule-sep">→</span>voltear tarjeta</div>
-          <div class="fc-rule"><span class="fc-rule-key">← →</span><span class="fc-rule-sep">→</span>navegar</div>
-          <div class="fc-rule"><span class="fc-rule-key">Swipe</span><span class="fc-rule-sep">→</span>deslizar</div>
-        </div>
-        <button class="as-start-btn" id="fc-start-btn">Empezar →</button>
-      </div>
-    </div>
-
-    <!-- SUB: VIEWER -->
-    <div id="fc-viewer" class="fc-sub">
-      <div class="fc-viewer-hdr">
-        <button class="as-back-mini" id="fc-back-mini">←</button>
-        <div class="fc-hdr-center">
-          <div class="fc-counter">
-            <span id="fc-idx-cur">1</span><span class="as-prog-sep">/</span><span id="fc-idx-tot">100</span>
-          </div>
-          <div class="fc-progress-bar-wrap">
-            <div class="fc-progress-bar" id="fc-progress-bar"></div>
-          </div>
-        </div>
-        <div class="fc-flip-hint" id="fc-flip-hint">tap para voltear</div>
-      </div>
-      <div class="fc-stage">
-        <div class="fc-card-wrap" id="fc-card-wrap">
-          <div class="fc-card-inner" id="fc-card-inner">
-            <div class="fc-card-face fc-card-front">
-              <div class="fc-side-label">English</div>
-              <div class="fc-term" id="fc-front-term"></div>
-              <div class="fc-card-hint">tap para ver en español</div>
-            </div>
-            <div class="fc-card-face fc-card-back">
-              <div class="fc-side-label">Español</div>
-              <div class="fc-term" id="fc-back-term"></div>
-              <div class="fc-card-hint">tap para ver en inglés</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="fc-nav-row">
-        <button class="fc-nav-btn" id="fc-prev-btn" aria-label="Anterior">‹</button>
-        <div class="fc-nav-label" id="fc-nav-label"></div>
-        <button class="fc-nav-btn" id="fc-next-btn" aria-label="Siguiente">›</button>
-      </div>
-    </div>
-
-    <!-- SUB: CHECKPOINT -->
-    <div id="fc-checkpoint" class="fc-sub">
-      <div class="fc-checkpoint-body">
-        <div class="fc-chk-icon">☕</div>
-        <div class="fc-chk-count" id="fc-chk-count">10 tarjetas vistas</div>
-        <div class="fc-chk-sub">¿Seguimos?</div>
-        <button class="as-start-btn" id="fc-continue-btn">Continuar →</button>
-        <button class="as-home-btn" data-goto="home">Inicio</button>
-      </div>
-    </div>
-
-  </div>
-
-
-  <!-- ── SEÑALES ── -->
-  <div id="screen-senales" class="screen">
-    <div class="sn-hdr">
-      <button class="back-btn" data-goto="home">←</button>
-      <div class="as-hdr-title">Señales</div>
-      <button class="sn-lang-btn" id="sn-lang-btn">English</button>
-    </div>
-
-    <!-- Instruction block -->
-    <div class="sn-instr" id="sn-instr">
-      <img class="sn-instr-icon" src="assets/signs.png" alt="señales" />
-      <div class="sn-instr-text">
-        <div class="sn-instr-title">Selecciona el significado correcto de cada señal.</div>
-        <div class="sn-instr-sub">Puedes cambiar a inglés en cualquier momento.</div>
-      </div>
-    </div>
-
-    <!-- Card: image + options -->
-    <div class="sn-card" id="sn-card">
-      <div class="sn-img-wrap">
-        <div class="sn-img-card">
-          <img class="sn-img" id="sn-img" src="" alt="señal de tráfico" onload="snImgLoaded()" />
-        </div>
-        <img class="sn-img-preload" id="sn-img-preload" src="" alt="" aria-hidden="true" />
-      </div>
-      <div class="sn-opts" id="sn-opts">
-        <button class="sn-opt" id="sn-opt-0" data-idx="0" onclick="handleSignAnswer(0)"></button>
-        <button class="sn-opt" id="sn-opt-1" data-idx="1" onclick="handleSignAnswer(1)"></button>
-      </div>
-    </div>
-
-    <!-- Checkpoint overlay (every 15 questions) -->
-    <div class="sn-checkpoint" id="sn-checkpoint">
-      <div class="sn-cp-body">
-        <div class="sn-cp-icon">🚦</div>
-        <div class="sn-cp-title">15 señales vistas</div>
-        <div class="sn-cp-sub">¿Quieres continuar o volver al inicio?</div>
-        <button class="as-start-btn" onclick="snContinue()">Continuar →</button>
-        <button class="as-home-btn" data-goto="home">Volver al inicio</button>
-      </div>
-    </div>
-
-    <!-- Progress indicator -->
-    <div class="sn-footer">
-      <span class="sn-prog" id="sn-prog"></span>
-      <div class="sn-prog-bar-wrap"><div class="sn-prog-bar" id="sn-prog-bar"></div></div>
-    </div>
-  </div>
-
+  <!-- ── EXAMEN ── -->
   <div id="screen-examen" class="screen placeholder">
     <button class="back-btn" data-goto="home">←</button>
     <h2>Practica el examen</h2>
