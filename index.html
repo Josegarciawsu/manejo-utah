@@ -69,7 +69,7 @@ h1{margin:0;color:#f5fdff;font-size:clamp(42px,8vw,82px);letter-spacing:.16em;te
 <div id="hint">Sigue el punto · Usa audífonos</div><div id="progress">0 / 50 · THETA MODE</div>
 <div id="panMeter"><span>L</span><div id="track"><i id="panDot"></i></div><span>R</span></div>
 <div id="finishScreen"><div id="finishCard"><p>SESIÓN COMPLETADA</p><h2>Excelente práctica</h2><button id="restartBtn" type="button">REPETIR</button></div></div>
-<div id="splash"><div id="splashCard"><p id="eyebrow">NEUROSPATIAL LEARNING</p><h1>VOCABULARIO 3D</h1><p id="subtitle">Sigue el punto · Usa audífonos</p><button id="startBtn" type="button">▶ INICIAR</button></div></div>
+<div id="splash"><div id="splashCard"><p id="eyebrow">NEUROSPATIAL LEARNING</p><h1>VOCABULARIO 3D</h1><p id="subtitle">Sigue el punto · Usa audífonos<br><span style="font-size:12px;opacity:.72;letter-spacing:.05em">En celular, toca INICIAR una vez y sube el volumen multimedia.</span></p><button id="startBtn" type="button">▶ INICIAR</button></div></div>
 </div>
 
 <script>
@@ -80,7 +80,29 @@ target=randomPosition();
 loadVoices();if("speechSynthesis"in window){speechSynthesis.onvoiceschanged=loadVoices;setTimeout(loadVoices,500);setTimeout(loadVoices,1500)}
 window.addEventListener("mousemove",e=>{mouseX=e.clientX/innerWidth;mouseY=e.clientY/innerHeight});
 startBtn.onclick=startExperience;startBtn.onpointerdown=startExperience;restartBtn.onclick=restartExperience;restartBtn.onpointerdown=restartExperience;
-function startExperience(e){if(e)e.preventDefault();if(running)return;running=true;started=true;startBtn.disabled=true;startBtn.textContent="INICIANDO...";splash.classList.add("hidden");setTimeout(()=>splash.style.display="none",760);setTimeout(()=>figure.classList.add("turn"),2500);try{initAudio();if(audio&&audio.ctx&&audio.ctx.state==="suspended")audio.ctx.resume().catch(()=>{})}catch(err){console.warn(err)}if(!animating){animating=true;animate()}runLoop()}
+
+function unlockMobileSpeech(){
+  if(!("speechSynthesis" in window)) return;
+
+  try{
+    speechSynthesis.cancel();
+
+    // Mobile Safari/Chrome often require speech to be initialized directly
+    // from the first user tap. This tiny utterance unlocks later voices.
+    const unlock = new SpeechSynthesisUtterance(".");
+    unlock.lang = "en-US";
+    unlock.volume = 0.01;
+    unlock.rate = 1;
+    unlock.pitch = 1;
+
+    speechSynthesis.speak(unlock);
+
+    setTimeout(()=>loadVoices(),250);
+    setTimeout(()=>loadVoices(),900);
+  }catch(e){}
+}
+
+function startExperience(e){if(e)e.preventDefault();unlockMobileSpeech();if(running)return;running=true;started=true;startBtn.disabled=true;startBtn.textContent="INICIANDO...";splash.classList.add("hidden");setTimeout(()=>splash.style.display="none",760);setTimeout(()=>figure.classList.add("turn"),2500);try{initAudio();if(audio&&audio.ctx&&audio.ctx.state==="suspended")audio.ctx.resume().catch(()=>{})}catch(err){console.warn(err)}if(!animating){animating=true;animate()}runLoop()}
 function restartExperience(e){if(e)e.preventDefault();finishScreen.classList.remove("show");sequence=shuffle(VOCABULARY);idx=0;predict=0;started=true;running=true;progressEl.textContent="0 / 50 · THETA MODE";runLoop()}
 function animate(){current.x+=(target.x-current.x)*.034;current.y+=(target.y-current.y)*.034;current.z+=(target.z-current.z)*.034;const behind=current.z<-70,scale=Math.max(.55,Math.min(1.55,1+current.z*.0036));orb.style.left=current.x+"vw";orb.style.top=current.y+"vh";orb.style.transform=`translate(-50%,-50%) scale(${scale})`;orb.style.opacity=behind?.72:1;pulseRing.style.left=current.x+"vw";pulseRing.style.top=current.y+"vh";word.style.left=Math.max(18,Math.min(82,current.x))+"vw";word.style.top=Math.max(28,Math.min(68,current.y-8))+"vh";const pan=(current.x-50)/50;panDot.style.left=(50+Math.max(-1,Math.min(1,pan))*45)+"%";updateAudio(pan,current.z);requestAnimationFrame(animate)}
 async function runLoop(){await wait(3200);while(started&&idx<sequence.length){const item=sequence[idx];idx++;progressEl.textContent=idx+" / "+sequence.length+" · THETA MODE";target=randomPosition();blip();await wait(2600);showWord(item[1],"spanish");await wait(2300);hideWord();await wait(520);await blinkOrbTwice();doubleEnglishBeep();hapticCue();showWord(item[0],"english");await wait(560);setVoiceMode(true);await wait(160);await speak(item[0],"en-US",.72,1.02);await wait(260);await speak(item[1],"es-MX",.78,1);await wait(220);setVoiceMode(false);await wait(1050);hideWord();if(idx%5===0)matrix(item[0]);await wait(700)}started=false;running=false;finishScreen.classList.add("show")}
@@ -101,7 +123,10 @@ function speak(text,lang,rate,pitch){
       return;
     }
 
-    try{speechSynthesis.cancel()}catch(e){}
+    try{
+      speechSynthesis.cancel();
+      if(speechSynthesis.paused) speechSynthesis.resume();
+    }catch(e){}
 
     const u=new SpeechSynthesisUtterance(text);
     u.lang=lang;
@@ -110,7 +135,7 @@ function speak(text,lang,rate,pitch){
     u.volume=1;
 
     const v=pickVoice(lang);
-    if(v)u.voice=v;
+    if(v) u.voice=v;
 
     let done=false;
     const fin=()=>{
@@ -123,11 +148,18 @@ function speak(text,lang,rate,pitch){
     u.onend=fin;
     u.onerror=fin;
 
+    // Small delay helps mobile browsers after audio context activity.
     setTimeout(()=>{
-      try{speechSynthesis.speak(u)}catch(e){fin()}
-    },80);
+      try{
+        speechSynthesis.resume();
+        speechSynthesis.speak(u);
+      }catch(e){
+        fin();
+      }
+    },120);
 
-    setTimeout(fin,Math.max(1450,text.length*180));
+    // Mobile fallback so the sequence never freezes.
+    setTimeout(fin,Math.max(1700,text.length*210));
   });
 }
 function initAudio(){if(audio)return audio;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;const ctx=new AC(),master=ctx.createGain();master.gain.value=.18;const panner=ctx.createStereoPanner?ctx.createStereoPanner():null;if(panner){master.connect(panner);panner.connect(ctx.destination)}else master.connect(ctx.destination);function brown(){const len=ctx.sampleRate*2,b=ctx.createBuffer(1,len,ctx.sampleRate),d=b.getChannelData(0);let last=0;for(let i=0;i<len;i++){const white=Math.random()*2-1;last=(last+.02*white)/1.02;d[i]=last*4.2}const s=ctx.createBufferSource();s.buffer=b;s.loop=true;return s}const leftNoise=brown(),rightNoise=brown(),movingNoise=brown(),leftGain=ctx.createGain(),rightGain=ctx.createGain(),movingGain=ctx.createGain(),leftPan=ctx.createStereoPanner?ctx.createStereoPanner():null,rightPan=ctx.createStereoPanner?ctx.createStereoPanner():null,movingPan=ctx.createStereoPanner?ctx.createStereoPanner():null;leftGain.gain.value=.018;rightGain.gain.value=.016;movingGain.gain.value=.018;if(leftPan)leftPan.pan.value=-.85;if(rightPan)rightPan.pan.value=.85;leftNoise.connect(leftGain);rightNoise.connect(rightGain);movingNoise.connect(movingGain);if(leftPan){leftGain.connect(leftPan);leftPan.connect(master)}else leftGain.connect(master);if(rightPan){rightGain.connect(rightPan);rightPan.connect(master)}else rightGain.connect(master);if(movingPan){movingGain.connect(movingPan);movingPan.connect(master)}else movingGain.connect(master);leftNoise.start();rightNoise.start();movingNoise.start();audio={ctx,master,panner,leftGain,rightGain,movingGain,movingPan};return audio}
