@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Vocabulario 3D - mobile safe v9</title>
+<title>Vocabulario 3D - neurotech v10</title>
 <style>
 *{box-sizing:border-box}
 html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#030712;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
@@ -69,7 +69,7 @@ h1{margin:0;color:#f5fdff;font-size:clamp(42px,8vw,82px);letter-spacing:.16em;te
 <div id="hint">Sigue el punto · Usa audífonos · mobile fix v3</div><div id="progress">0 / 50 · THETA MODE</div>
 <div id="panMeter"><span>L</span><div id="track"><i id="panDot"></i></div><span>R</span></div>
 <div id="finishScreen"><div id="finishCard"><p>SESIÓN COMPLETADA</p><h2>Excelente práctica</h2><button id="restartBtn" type="button">REPETIR</button></div></div>
-<div id="splash"><div id="splashCard"><p id="eyebrow">NEUROSPATIAL LEARNING</p><h1>VOCABULARIO 3D</h1><p id="subtitle">Sigue el punto · Usa audífonos<br><span style="font-size:12px;opacity:.72;letter-spacing:.05em">VERSIÓN MÓVIL FIX · toca ENTRAR una vez.</span></p><button id="startBtn" type="button">▶ ENTRAR</button></div></div>
+<div id="splash"><div id="splashCard"><p id="eyebrow">NEUROSPATIAL LEARNING</p><h1>VOCABULARIO 3D</h1><p id="subtitle">Sigue el punto · Usa audífonos<br><span style="font-size:12px;opacity:.72;letter-spacing:.05em">NEUROTECH MODE · toca ENTRAR una vez.</span></p><button id="startBtn" type="button">▶ ENTRAR</button></div></div>
 </div>
 
 <script>
@@ -89,22 +89,33 @@ function unlockMobileSpeech(){
   if(!("speechSynthesis" in window)) return;
 
   try{
+    loadVoices();
     try{speechSynthesis.resume()}catch(e){}
 
+    // iPhone-safe: do a tiny utterance directly from the tap event.
+    // This must never block the app visually.
     const unlock = new SpeechSynthesisUtterance("Audio activado");
     unlock.lang = "en-US";
-    unlock.volume = 0.05;
+    unlock.volume = 0.03;
     unlock.rate = 1;
     unlock.pitch = 1;
 
-    const iosVoice = voices.find(v=>/Samantha|Alex|Daniel|Karen|Moira/i.test(v.name)) || voices.find(v=>v.lang&&v.lang.startsWith("en")) || voices[0];
+    const iosVoice =
+      voices.find(v=>/Samantha|Alex|Daniel|Karen|Moira|Ava|Victoria/i.test(v.name)) ||
+      voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("en")) ||
+      voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("es")) ||
+      voices[0];
+
     if(iosVoice) unlock.voice = iosVoice;
 
     speechSynthesis.speak(unlock);
 
     setTimeout(()=>loadVoices(),250);
     setTimeout(()=>loadVoices(),900);
-  }catch(e){console.warn("speech unlock failed",e)}
+    setTimeout(()=>loadVoices(),1600);
+  }catch(e){
+    console.warn("speech unlock failed",e);
+  }
 }
 
 function startExperience(e){
@@ -113,7 +124,7 @@ function startExperience(e){
     try{e.stopPropagation()}catch(err){}
   }
 
-  // MOBILE-SAFE START: nothing audio-related is allowed to block the screen.
+  // ABSOLUTE RULE: the visual app starts first. Audio can fail; the screen cannot freeze.
   if(splash){
     splash.classList.add("hidden");
     splash.style.opacity="0";
@@ -123,7 +134,7 @@ function startExperience(e){
 
   if(startBtn){
     startBtn.disabled=true;
-    startBtn.textContent="INICIAR";
+    startBtn.textContent="ENTRAR";
   }
 
   if(running) return false;
@@ -144,24 +155,26 @@ function startExperience(e){
     setTimeout(()=>figure&&figure.classList.add("turn"),2500);
   }catch(err){}
 
+  // Audio unlock happens immediately after the tap, but every part is isolated.
+  try{
+    initAudio();
+    if(audio&&audio.ctx&&audio.ctx.state==="suspended"){
+      audio.ctx.resume().catch(()=>{});
+    }
+  }catch(err){
+    console.warn("audio skipped",err);
+  }
+
+  try{
+    unlockMobileSpeech();
+  }catch(err){
+    console.warn("speech skipped",err);
+  }
+
   // Start lesson immediately. No waiting for audio, voices, or iOS permissions.
   setTimeout(()=>{
     try{runLoop()}catch(err){console.error("runLoop error",err)}
   },50);
-
-  // Audio is optional and delayed. If it fails, the app still runs.
-  setTimeout(()=>{
-    try{
-      initAudio();
-      if(audio&&audio.ctx&&audio.ctx.state==="suspended"){
-        audio.ctx.resume().catch(()=>{});
-      }
-    }catch(err){console.warn("audio skipped",err)}
-  },350);
-
-  setTimeout(()=>{
-    try{unlockMobileSpeech()}catch(err){console.warn("speech skipped",err)}
-  },700);
 
   return false;
 }
@@ -173,20 +186,41 @@ function showWord(t,p){word.textContent=t;word.style.visibility="visible";word.c
 function hideWord(){word.className=""}
 function visualPulse(){pulseRing.classList.remove("fire");void pulseRing.offsetWidth;pulseRing.classList.add("fire")}
 function blinkOrbTwice(){return new Promise(r=>{orb.classList.remove("blink");void orb.offsetWidth;orb.classList.add("blink");setTimeout(r,520)})}
-function hapticCue(){if(!navigator.vibrate)return;if(target.x<45)navigator.vibrate([30,20,30]);else if(target.x>55)navigator.vibrate([70]);else navigator.vibrate([20,40,20,40,20])}
+function hapticCue(){try{if(!navigator.vibrate)return;if(target.z<-70)navigator.vibrate([18,35,18,35,18]);else if(target.x<45)navigator.vibrate([28,22,28]);else if(target.x>55)navigator.vibrate([65]);else navigator.vibrate([18,38,18,38,18])}catch(e){}}
 function wait(ms){return new Promise(r=>setTimeout(r,ms))}
 function shuffle(a){return[...a].sort(()=>Math.random()-.5)}
 function loadVoices(){if("speechSynthesis"in window)voices=speechSynthesis.getVoices()||[]}
-function pickVoice(lang){loadVoices();const l=lang.toLowerCase();if(l.startsWith("es"))return voices.find(v=>/Paulina|Monica|Marisol|Sabina|Paloma|Dalia|Google español|Español/i.test(v.name)&&v.lang.toLowerCase().startsWith("es"))||voices.find(v=>v.lang.toLowerCase().startsWith("es-mx"))||voices.find(v=>v.lang.toLowerCase().startsWith("es-es"))||voices.find(v=>v.lang.toLowerCase().startsWith("es"))||null;return voices.find(v=>/Samantha|Ava|Victoria|Allison|Jenny|Google US English|English Female/i.test(v.name)&&v.lang.toLowerCase().startsWith("en"))||voices.find(v=>v.lang.toLowerCase().startsWith("en-us"))||voices.find(v=>v.lang.toLowerCase().startsWith("en"))||null}
+function pickVoice(lang){
+  loadVoices();
+  const l=(lang||"").toLowerCase();
+  const safeLang=v=>(v.lang||"").toLowerCase();
+
+  if(l.startsWith("es")){
+    return voices.find(v=>/Paulina|Mónica|Monica|Marisol|Sabina|Paloma|Dalia|Jorge|Diego|Google español|Español|Spanish/i.test(v.name)&&safeLang(v).startsWith("es")) ||
+      voices.find(v=>safeLang(v).startsWith("es-mx")) ||
+      voices.find(v=>safeLang(v).startsWith("es-us")) ||
+      voices.find(v=>safeLang(v).startsWith("es-es")) ||
+      voices.find(v=>safeLang(v).startsWith("es")) ||
+      null;
+  }
+
+  return voices.find(v=>/Samantha|Alex|Daniel|Karen|Moira|Ava|Victoria|Allison|Jenny|Google US English|English Female/i.test(v.name)&&safeLang(v).startsWith("en")) ||
+    voices.find(v=>safeLang(v).startsWith("en-us")) ||
+    voices.find(v=>safeLang(v).startsWith("en")) ||
+    null;
+}
 function speak(text,lang,rate,pitch){
   return new Promise(resolve=>{
     if(!("speechSynthesis" in window)){
-      setTimeout(resolve,900);
+      setTimeout(resolve,700);
       return;
     }
 
+    const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);
+
     try{
-      speechSynthesis.cancel();
+      // On iPhone, canceling too aggressively can kill the next utterance.
+      if(!isIOS) speechSynthesis.cancel();
       if(speechSynthesis.paused) speechSynthesis.resume();
     }catch(e){}
 
@@ -203,25 +237,27 @@ function speak(text,lang,rate,pitch){
     const fin=()=>{
       if(!done){
         done=true;
+        try{setVoiceMode(false)}catch(e){}
         resolve();
       }
     };
 
+    u.onstart=()=>{try{setVoiceMode(true)}catch(e){}};
     u.onend=fin;
     u.onerror=fin;
 
-    // Small delay helps mobile browsers after audio context activity.
+    // iOS speech is more reliable with a short delay after brown-noise ducking.
     setTimeout(()=>{
       try{
-        speechSynthesis.resume();
+        if(speechSynthesis.paused) speechSynthesis.resume();
         speechSynthesis.speak(u);
       }catch(e){
         fin();
       }
-    },120);
+    },isIOS?220:90);
 
-    // Mobile fallback so the sequence never freezes.
-    setTimeout(fin,Math.max(1700,text.length*210));
+    // Never freeze the learning sequence if iPhone refuses TTS.
+    setTimeout(fin,Math.max(1500,text.length*190));
   });
 }
 function initAudio(){if(audio)return audio;const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return null;const ctx=new AC(),master=ctx.createGain();master.gain.value=.18;const panner=ctx.createStereoPanner?ctx.createStereoPanner():null;if(panner){master.connect(panner);panner.connect(ctx.destination)}else master.connect(ctx.destination);function brown(){const len=ctx.sampleRate*2,b=ctx.createBuffer(1,len,ctx.sampleRate),d=b.getChannelData(0);let last=0;for(let i=0;i<len;i++){const white=Math.random()*2-1;last=(last+.02*white)/1.02;d[i]=last*4.2}const s=ctx.createBufferSource();s.buffer=b;s.loop=true;return s}const leftNoise=brown(),rightNoise=brown(),movingNoise=brown(),leftGain=ctx.createGain(),rightGain=ctx.createGain(),movingGain=ctx.createGain(),leftPan=ctx.createStereoPanner?ctx.createStereoPanner():null,rightPan=ctx.createStereoPanner?ctx.createStereoPanner():null,movingPan=ctx.createStereoPanner?ctx.createStereoPanner():null;leftGain.gain.value=.018;rightGain.gain.value=.016;movingGain.gain.value=.018;if(leftPan)leftPan.pan.value=-.85;if(rightPan)rightPan.pan.value=.85;leftNoise.connect(leftGain);rightNoise.connect(rightGain);movingNoise.connect(movingGain);if(leftPan){leftGain.connect(leftPan);leftPan.connect(master)}else leftGain.connect(master);if(rightPan){rightGain.connect(rightPan);rightPan.connect(master)}else rightGain.connect(master);if(movingPan){movingGain.connect(movingPan);movingPan.connect(master)}else movingGain.connect(master);leftNoise.start();rightNoise.start();movingNoise.start();audio={ctx,master,panner,leftGain,rightGain,movingGain,movingPan};return audio}
